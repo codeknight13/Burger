@@ -7,4 +7,4 @@ The burger project is a front end web-development project which uses React for t
 
 ___
 
-[Live URL : ](https://reactburger-app.herokuapp.com/)
+[Click to check Live URL](https://reactburger-app.herokuapp.com/)
