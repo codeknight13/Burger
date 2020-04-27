@@ -21,6 +21,7 @@ class Checkout extends Component {
         ingredients[param[0]] = +param[1];
       }
     }
+    console.log('we got the price as ' + price);
     this.setState({ingredients:ingredients,totalPrice:price});
   }
   checkoutCancelledHandler = () => {

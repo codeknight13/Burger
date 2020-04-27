@@ -9,7 +9,8 @@ class Orders extends Component {
 
   state = {
     orders:[],
-    loading: true
+    loading: true,
+    date: null
   }
 
   componentDidMount () {
@@ -22,6 +23,7 @@ class Orders extends Component {
             id:key
           })
         }
+        console.log(res);
         this.setState({orders:orders,loading: false})
       })
       .catch(err => {
@@ -36,10 +38,11 @@ class Orders extends Component {
         {
           this.state.orders.map(order => (
             <Order 
-              key={order.id} 
+              key={order.id}
               id={order.id}
               ingredients={order.ingredients}
               price={order.price}
+              time={order.time}
             />
           ))
         }

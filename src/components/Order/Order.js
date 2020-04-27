@@ -2,6 +2,7 @@ import React , {Component} from 'react';
 import classes from './Order.css'
 import Button from '../../components/UI/Button/Button'
 import axios from '../../axios-orders'
+import dateformat from 'dateformat'
 
 class Order extends Component {
   render () {
@@ -29,10 +30,16 @@ class Order extends Component {
               </span>
     })
 
+    
+
     return (
       <div className={classes.Order}>
         <div style = {{float: 'right'}}>
+          <strong style={{paddingRight:'10px'}}>
+            {dateformat(this.props.time,"h:MM TT dddd dS mmmm")}
+          </strong>
           <Button 
+            style={{paddingTop:'30px'}}
             btnType='Danger' 
             clicked={() => {
               console.log(this.props.id);
