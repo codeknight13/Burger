@@ -15,6 +15,11 @@
   padding-left: 0;
 }
 
+.Button:disabled {
+  color: #8b7b7b;
+  cursor: not-allowed;
+}
+
 .Success {
   color: #5C9210;
 }

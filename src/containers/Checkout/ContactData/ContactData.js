@@ -14,9 +14,14 @@ class ContactData extends Component {
         elementType: 'input',
         elementConfig: {
           type: 'text',
-          placeholder: 'YourName'
+          placeholder: 'Your Name'
         },
-        value: ''
+        value: '',
+        validation: {
+          required: true
+        },
+        valid: false,
+        touched: false
       },
       street: {
         elementType: 'input',
@@ -24,7 +29,12 @@ class ContactData extends Component {
           type: 'text',
           placeholder: 'Street'
         },
-        value: ''
+        value: '',
+        validation: {
+          required: true
+        },
+        valid: false,
+        touched: false
       },
       zipCode: {
         elementType: 'input',
@@ -32,7 +42,13 @@ class ContactData extends Component {
           type: 'text',
           placeholder: 'ZIP'
         },
-        value: ''
+        value: '',
+        validation: {
+          required: true,
+          reqLength: 6
+        },
+        valid: false,
+        touched: false
       },
       country: {
         elementType: 'input',
@@ -40,7 +56,12 @@ class ContactData extends Component {
           type: 'text',
           placeholder: 'Country'
         },
-        value: ''
+        value: '',
+        validation: {
+          required: true
+        },
+        valid: false,
+        touched: false
       },
       email: {
         elementType: 'input',
@@ -48,7 +69,12 @@ class ContactData extends Component {
           type: 'text',
           placeholder: 'Your E-Mail'
         },
-        value: ''
+        value: '',
+        validation: {
+          required: true
+        },
+        valid: false,
+        touched: false
       },
       deliveryMethod: {
         elementType: 'select',
@@ -58,19 +84,56 @@ class ContactData extends Component {
             {value: 'cheapest', displayValue: 'cheapest'},
           ]
         },
-        value: ''
+        value: 'fastest',
+        validation: {
+
+        },
+        valid: true,
+        touched: false
       }
     },
+    formIsValid : false,
     loading :false
   }
 
+  checkValidity(value , rules) {
+    // console.log('checkValidity', value)
+    let isValid = true;
+    
+    if (rules.required) {
+      isValid = value.trim() !=='';
+    }
+
+    if (rules.reqLength) {
+      // console.log(typeof(value),value);
+      isValid = value.length===rules.reqLength;
+      // console.log(this.state.orderForm.zipCode.valid)
+    }
+
+    return isValid;
+  }
+
   inputChangedHandler = (event,identifier) => {
+    console.log('someoneClicked')
     const updatedOrderForm = {...this.state.orderForm};
     const updatedFormElement = {...updatedOrderForm[identifier]};
     updatedFormElement.value = event.target.value;
+    if (!updatedFormElement.touched)
+    updatedFormElement.elementConfig.placeholder+=' is required'
+    updatedFormElement.touched = true;
+    updatedFormElement.valid = 
+    this.checkValidity(updatedFormElement.value,updatedFormElement.validation);
+    // console.log('inputChangedHandler' , updatedFormElement.value)
     updatedOrderForm[identifier] = updatedFormElement;
+  
+    let formIsValid = true;
+    for (let inputIdentifier in updatedOrderForm) {
+      formIsValid &= updatedOrderForm[inputIdentifier].valid
+    }
+  
     this.setState({
-      orderForm:updatedOrderForm
+      orderForm:updatedOrderForm,
+      formIsValid : formIsValid
     })
   }
 
@@ -118,10 +181,12 @@ class ContactData extends Component {
               elementType={formElement.config.elementType}
               elementConfig={formElement.config.elementConfig}
               value={formElement.config.value}
+              touched={formElement.config.touched}
+              invalid={!formElement.config.valid}
               changed={(event) => this.inputChangedHandler(event,formElement.id)}
             />
           ))}
-          <Button btnType='Success'>ORDER</Button>
+          <Button disabled = {!this.state.formIsValid} btnType='Success'>ORDER</Button>
       </form>
     );
     let message = 'Enter your Contact Data'
