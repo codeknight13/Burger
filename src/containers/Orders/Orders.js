@@ -7,7 +7,6 @@ import * as actions from '../../store/actions/index'
 import Spinner from '../../components/UI/Spinner/Spinner'
 import {connect} from 'react-redux'
 
-
 class Orders extends Component {
   componentDidMount () {
     this.props.onFetchOrders(this.props.token);

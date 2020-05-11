@@ -85,3 +85,11 @@ export const fetchOrders = (token) => {
       })
   }
 }
+
+export const deleteOrder = (orderId) => {
+  console.log('deleting');
+  return {
+    type: actionTypes.DELETE_ORDER,
+    orderId: orderId
+  }
+}

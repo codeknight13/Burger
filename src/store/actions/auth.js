@@ -1,7 +1,7 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios'
 
-const api_key = 'AIzaSyCi1ZL8HS2i1k8Aa6PVLySF0-MU82v1Ihc'
+// const api_key = 'AIzaSyCi1ZL8HS2i1k8Aa6PVLySF0-MU82v1Ihc'
 
 export const authStart = () => {
   console.log('started');
@@ -35,7 +35,7 @@ export const checkAuthTimeout = (expirationTime) => {
   return dispatch => {
     setTimeout(() => {
       dispatch(logout())
-    },expirationTime*50)
+    },expirationTime*500)
   }
 }
 

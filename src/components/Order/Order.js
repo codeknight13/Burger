@@ -3,6 +3,9 @@ import classes from './Order.css'
 import Button from '../../components/UI/Button/Button'
 import axios from '../../axios-orders'
 import dateformat from 'dateformat'
+import { connect } from 'react-redux';
+import * as actions from '../../store/actions/index'
+
 
 class Order extends Component {
   render () {
@@ -30,8 +33,6 @@ class Order extends Component {
               </span>
     })
 
-    
-
     return (
       <div className={classes.Order}>
         <div style = {{float: 'right'}}>
@@ -44,10 +45,11 @@ class Order extends Component {
             clicked={() => {
               console.log(this.props.id);
               const id = this.props.id
-                axios.delete('/orders/'+id+'.json')
+                axios.delete('/orders/'+id+'.json?auth='+this.props.token)
                   .then(res => {
                       console.log('res',res);
-                      window.location.reload();
+                      console.log(this.props.orders)
+                      this.props.onDeleteOrder(id);
                     }
                   )
               }
@@ -63,4 +65,17 @@ class Order extends Component {
   }
 }
 
-export default Order;
+const mapStateToProps = (state) => {
+  return {
+    token: state.auth.token,
+    orders: state.order.orders
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onDeleteOrder: (id) => dispatch(actions.deleteOrder(id))
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Order);

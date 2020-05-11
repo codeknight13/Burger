@@ -7,6 +7,7 @@ import Spinner from '../../components/UI/Spinner/Spinner'
 
 import * as actions from '../../store/actions/index'
 import {connect} from 'react-redux'
+import { Redirect } from 'react-router-dom'
 
 
 class Auth extends Component {
@@ -41,7 +42,8 @@ class Auth extends Component {
         touched: false
       },
     },
-    isSignUp: true
+    isSignUp: true,
+    shouldRedirect: false
   }
 
   checkValidity(value, rules) {
@@ -88,6 +90,13 @@ class Auth extends Component {
     this.setState({controls: updatedControls});
   }
 
+  componentWillReceiveProps = (nextProps) => {
+    // console.log('componentWillReceiveProps ' , nextProps, nextProps.token)
+    if (nextProps.token) {
+      this.setState({shouldRedirect: true})
+    }
+  }
+
   submitHandler = (event) => {
     event.preventDefault();
     this.props.onAuth(this.state.controls.email.value, this.state.controls.password.value, this.state.isSignUp)
@@ -127,7 +136,8 @@ class Auth extends Component {
     if (this.props.loading) {
       form = <Spinner />
     }
-    return (
+
+    let output = (
       <div className={classes.Auth}>
         {errorMessage}
         <form onSubmit={this.submitHandler}>
@@ -137,13 +147,20 @@ class Auth extends Component {
         <Button clicked={this.switchAuthModeHandler} customStyles={{"float": 'right'}} btnType='Danger'>GO TO {this.state.isSignUp ? 'SIGN IN':'SIGN UP'}</Button>
       </div>
     )
+
+    if (this.state.shouldRedirect) {
+      output = <Redirect to='/' />
+    }
+
+    return output;
   }
 }
 
 const mapStateToProps = (state) => {
   return {
     loading: state.auth.loading,
-    error: state.auth.error
+    error: state.auth.error,
+    token: state.auth.token
   }
 }
 
