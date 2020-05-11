@@ -6,8 +6,15 @@ import dateformat from 'dateformat'
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index'
 
+import Spinner from '../UI/Spinner/Spinner'
+
 
 class Order extends Component {
+
+  state = {
+    deleting: false
+  }
+
   render () {
     // console.log(this.props);
     const ingredients = [];
@@ -33,7 +40,7 @@ class Order extends Component {
               </span>
     })
 
-    return (
+    let output = (
       <div className={classes.Order}>
         <div style = {{float: 'right'}}>
           <strong style={{paddingRight:'10px'}}>
@@ -43,12 +50,13 @@ class Order extends Component {
             style={{paddingTop:'30px'}}
             btnType='Danger' 
             clicked={() => {
-              console.log(this.props.id);
+              this.setState({deleting: true});
+              // console.log(this.props.id);
               const id = this.props.id
                 axios.delete('/orders/'+id+'.json?auth='+this.props.token)
                   .then(res => {
-                      console.log('res',res);
-                      console.log(this.props.orders)
+                      // console.log('res',res);
+                      // console.log(this.props.orders)
                       this.props.onDeleteOrder(id);
                     }
                   )
@@ -62,6 +70,10 @@ class Order extends Component {
         <p>Price : <strong> {this.props.price}$</strong> </p>  
       </div>
     )
+    if (this.state.deleting) {
+      output = <Spinner />
+    }
+    return output;
   }
 }
 

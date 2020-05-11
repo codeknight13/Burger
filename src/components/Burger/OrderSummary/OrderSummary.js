@@ -4,9 +4,9 @@ import Button from '../../UI/Button/Button'
 
 class OrderSummary extends Component {
 
-  componentDidUpdate () {
-    console.log('[OrderSummary] got Update');
-  }
+  // componentDidUpdate () {
+  //   console.log('[OrderSummary] got Update');
+  // }
 
 
   render () {

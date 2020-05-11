@@ -115,7 +115,7 @@ class ContactData extends Component {
   }
 
   inputChangedHandler = (event,identifier) => {
-    console.log('someoneClicked')
+    // console.log('someoneClicked')
     const updatedOrderForm = {...this.state.orderForm};
     const updatedFormElement = {...updatedOrderForm[identifier]};
     updatedFormElement.value = event.target.value;
@@ -148,7 +148,8 @@ class ContactData extends Component {
       ingredients: this.props.ingredients,
       price: this.props.totalPrice,
       orderData: formData,
-      time: new Date()
+      time: new Date(),
+      userId: this.props.userId
     }
     this.props.onOrderBurger(order,this.props.token);
   }
@@ -196,7 +197,8 @@ const mapStateToProps = (state) => {
     ingredients: state.burgerBuilder.ingredients,
     totalPrice: state.burgerBuilder.totalPrice,
     loading: state.order.loading,
-    token: state.auth.token
+    token: state.auth.token,
+    userId: state.auth.userId
   }
 }
 
