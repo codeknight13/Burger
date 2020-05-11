@@ -42,8 +42,7 @@ class Auth extends Component {
         touched: false
       },
     },
-    isSignUp: true,
-    shouldRedirect: false
+    isSignUp: true
   }
 
   checkValidity(value, rules) {
@@ -90,10 +89,9 @@ class Auth extends Component {
     this.setState({controls: updatedControls});
   }
 
-  componentWillReceiveProps = (nextProps) => {
-    // console.log('componentWillReceiveProps ' , nextProps, nextProps.token)
-    if (nextProps.token) {
-      this.setState({shouldRedirect: true})
+  componentDidMount = () => {
+    if (!this.props.buildingBurger && this.props.authRedirectPath !== '/') {
+      this.props.onSetAuthRedirectPath('/');
     }
   }
 
@@ -147,9 +145,9 @@ class Auth extends Component {
         <Button clicked={this.switchAuthModeHandler} customStyles={{"float": 'right'}} btnType='Danger'>GO TO {this.state.isSignUp ? 'SIGN IN':'SIGN UP'}</Button>
       </div>
     )
-
-    if (this.state.shouldRedirect) {
-      output = <Redirect to='/' />
+    
+    if (this.props.isAuthenticated) {
+      output = <Redirect to={this.props.authRedirectPath} />
     }
 
     return output;
@@ -160,13 +158,16 @@ const mapStateToProps = (state) => {
   return {
     loading: state.auth.loading,
     error: state.auth.error,
-    token: state.auth.token
+    isAuthenticated: state.auth.token !== null,
+    buildingBurger: state.burgerBuilder.building,
+    authRedirectPath: state.auth.authRedirectPath
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAuth: (email, password, isSignUp) => dispatch(actions.auth(email, password, isSignUp))
+    onAuth: (email, password, isSignUp) => dispatch(actions.auth(email, password, isSignUp)),
+    onSetAuthRedirectPath: (path) => dispatch(actions.setAuthRedirectPath(path))
   }
 }
 
