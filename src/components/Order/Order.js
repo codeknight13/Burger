@@ -31,9 +31,10 @@ class Order extends Component {
                 style={{
                   textTransform: 'capitalize',
                   display: 'inline-block',
-                  margin: '0 8px',
+                  margin: '10px 8px',
                   border: '1px solid #ccc',
-                  padding: '5px'
+                  padding: '5px',
+                  width: '80px'
                 }}
               >
                 {ig.name} : {ig.amount}
@@ -42,12 +43,10 @@ class Order extends Component {
 
     let output = (
       <div className={classes.Order}>
-        <div style = {{float: 'right'}}>
-          <strong style={{paddingRight:'10px'}}>
-            {dateformat(this.props.time,"h:MM TT dddd dS mmmm")}
-          </strong>
+        <div style = {{float: 'right', display: 'inline'}}>
+          
           <Button 
-            style={{paddingTop:'30px'}}
+            style={{paddingTop:'35px'}}
             btnType='Danger' 
             clicked={() => {
               this.setState({deleting: true});
@@ -68,6 +67,11 @@ class Order extends Component {
         </div>
         <p>Ingredients : {ingredientOutput}</p>
         <p>Price : <strong> {this.props.price}$</strong> </p>  
+        <p>
+        Time : <strong style={{paddingRight:'10px'}}>
+            {dateformat(this.props.time,"h:MM TT dddd dS mmmm")}
+          </strong>
+        </p>
       </div>
     )
     if (this.state.deleting) {
