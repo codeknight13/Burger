@@ -1,8 +1,8 @@
 .Burger {
   width: 100%;
   margin: auto;
-  height: 250px;
-  overflow: scroll;
+  height: 200px;
+  overflow: auto;
   text-align: center;
   font-weight: bold;
   font-size: 1.2rem;
@@ -24,7 +24,40 @@
 
 @media (min-width: 1000px) and (min-height: 700px) {
   .Burger {
-    width: 700px;
+    width: 650px;
     height: 600px;
+  }
+}
+
+
+.Header {
+  color: #838836;
+	-webkit-animation: Header 1s ease-out ;
+	        animation: Header 1s ease-out ;
+}
+
+
+ @-webkit-keyframes Header {
+  0% {
+    letter-spacing: -0.5em;
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes Header {
+  0% {
+    letter-spacing: -0.5em;
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
   }
 }

@@ -19,7 +19,7 @@ const burger = (props) => {
       <BurgerIngredient type='bread-top'/>
       {
         transformedIngredients.length === 0 ?
-        <p>Please add something!!!!</p> : transformedIngredients
+        <p className={classes.Header}>Make It Big</p> : transformedIngredients
       }
       <BurgerIngredient type='bread-bottom'/>
       

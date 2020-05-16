@@ -95,6 +95,8 @@
   margin: 2% auto;
   background: linear-gradient(#f4d004, #d6bb22);
   border-radius: 20px;
+  -webkit-animation: slide-in-top 5.0s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: slide-in-top 5.0s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
 .Salad {

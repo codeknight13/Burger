@@ -16,6 +16,8 @@ class Checkout extends Component {
 
   render () {
     let summary = <Redirect to='/'/>
+    const path = this.props.match.path + '/contact-data';
+    // console.log(parseInt(Math.random()*10)+'our path => ' + path);
     if (this.props.ingredients) {
       const purchasedRedirect = this.props.purchased?<Redirect to='/' />:null;
       summary = 
@@ -26,8 +28,8 @@ class Checkout extends Component {
             checkoutCancelled={this.checkoutCancelledHandler}
             checkoutContinued={this.checkoutContinuedHandler}
           />
-          <Route 
-            path={this.props.match.path + '/contact-data'} 
+          <Route
+            path={path} 
             component={ContactData}
           />
         </div>
