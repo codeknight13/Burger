@@ -1,10 +1,13 @@
-# The Burger Project
+# The Burger App
 
-___
+TheBurger app is built using React JS library and uses firebase as the backend for storing data and authentication. It has the functionality to login and signup for a user, customize a burger according to their requirement and order it. Redux is used for app state management. It is a progressive web app so you can also install on your mobile device.
 
+---
 
-TheBurger app is built using React JS library and uses firebase as the backend for storing data and authentication. It has the functionality to login and signup for a user, customize a burger according to their requirement and order it.
+## Functionalities:
 
-___
+1. User can register himself
 
-[Click to check Live URL](https://burger-472a9.web.app/)
+2. User can build a customised burger
+
+3. User can check his previous orders, and delete them
